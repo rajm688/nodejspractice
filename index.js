@@ -16,7 +16,7 @@ dotenv.config();
 const app = express();
 
 //setting port nnumber
-const PORT = 9000;
+const PORT = process.env.PORT;
 
 //creating movie data
 const movies = [
