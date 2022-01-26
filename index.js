@@ -1,6 +1,9 @@
 // importing express ("type":"modules")
 import express from "express";
 
+// importing movie Router
+import { movieRouter } from "./Routes/movies.js";
+
 // importing mongo client ("type":"modules")
 import { MongoClient } from "mongodb";
 
@@ -124,87 +127,19 @@ async function createConnection() {
   console.log("Mongo is connected");
   return client;
 }
-const client = await createConnection();
+export const client = await createConnection();
 
 //home route
 app.get("/", (req, res) => res.send("hello there"));
 
+app.use("/movies", movieRouter)
 //movies route
 // app.get("/movies",(req,res)=>{
 //     res.send(movies)
 //     })
 
-//serching movie data
-app.get("/movies", async (req, res) => {
-  // const {rating,name,language} = req.query; // object destructuring and seperating all necessery searching conditions
-  // const request = req.query; // object destructuring and seperating all necessery searching conditions
-
-  console.log(req.query);
-  if (req.query.rating) {
-    // since we get rating in string we need to convert to integer
-    req.query.rating = +req.query.rating;
-  }
-  const movies = await client
-    .db("FirstDB")
-    .collection("movies")
-    .find(req.query)
-    .toArray(); // use dot array for converting MongoDB cursor to array
-  // let filteredMovies = movies // copying movies in a another variable
-  // if(rating){
-  //  filteredMovies = filteredMovies.filter(mv=>mv.rating=== +rating)
-  // }
-  // if(language){
-  //      filteredMovies = filteredMovies.filter(mv=>mv.language===language)
-  //     }
-  // if(name){
-  //      filteredMovies = filteredMovies.filter(mv=>mv.name===name)
-
-  // }
-  res.send(movies);
-});
-
-//inserting movies
-app.post("/movies", async (req, res) => {
-  const newMovies = req.body;
-  console.log(newMovies);
-  const movies = await client
-    .db("FirstDB")
-    .collection("movies")
-    .insertMany(newMovies);
-  res.send(movies);
-});
-
-//updating Movies
-
-//finding movie by id
-app.get("/movies/:id", async (req, res) => {
-  const { id } = req.params;
-  console.log(req.params);
-  const movie = await client
-    .db("FirstDB")
-    .collection("movies")
-    .findOne({ id: id });
-  movie
-    ? res.send(movie)
-    : res.status(404).send({ message: "No movies found" });
-});
-
-//deleting movies by id
-app.delete("/movies/:id", async (req, res) => {
-  const { id } = req.params;
-  console.log(req.params);
-  const movie = await client
-    .db("FirstDB")
-    .collection("movies")
-    .deleteOne({ id: id });
-  res.send(movie);
-});
-
 //setting port
 app.listen(PORT, () => console.log("server started"));
 
-//CRUD
-// Create - post - ✅
-// Read - get - ✅
-// update - put
-// Delete - Delete- ✅
+
+
