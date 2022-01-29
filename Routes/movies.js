@@ -4,11 +4,13 @@ import express from "express"
 //importing movie functions
 import { searchingMovies, insertingMovies, findingById, deletingMovies,updatingMovie } from "../movieFunctions.js";
 
+import {auth} from "../auth.js"
+
 // getting router from express
 const router = express.Router()
 
 //serching movie data
-router.get("/", async (req, res) => {
+router.get("/",auth,async (req, res) => {
     // const {rating,name,language} = req.query; // object destructuring and seperating all necessery searching conditions
     // const request = req.query; // object destructuring and seperating all necessery searching conditions
   
@@ -33,7 +35,7 @@ router.get("/", async (req, res) => {
 });
   
 //inserting movies
-router.post("/", async (req, res) => {
+router.post("/",async (req, res) => {
     const newMovies = req.body;
     console.log(newMovies);
     const movies = await insertingMovies(newMovies);

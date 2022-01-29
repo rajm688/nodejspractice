@@ -4,6 +4,8 @@ import express from "express";
 // importing movie Router
 import { movieRouter } from "./Routes/movies.js";
 
+import { userRoute } from "./Routes/users.js";
+
 // importing mongo client ("type":"modules")
 import { MongoClient } from "mongodb";
 
@@ -132,11 +134,17 @@ export const client = await createConnection();
 //home route
 app.get("/", (req, res) => res.send("hello there"));
 
+//movies route
 app.use("/movies", movieRouter)
+
+//users route
+app.use("/users",userRoute)
+
 //movies route
 // app.get("/movies",(req,res)=>{
 //     res.send(movies)
 //     })
+
 
 //setting port
 app.listen(PORT, () => console.log("server started"));
