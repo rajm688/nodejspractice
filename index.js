@@ -12,6 +12,9 @@ import { MongoClient } from "mongodb";
 //importing dotenv
 import dotenv from "dotenv";
 
+//importing cors
+import cors from "cors"
+
 //configuring dotenv
 dotenv.config();
 
@@ -19,6 +22,8 @@ dotenv.config();
 
 //extracting app from express function
 const app = express();
+
+app.use(cors())
 
 //setting port nnumber
 const PORT = process.env.PORT;
