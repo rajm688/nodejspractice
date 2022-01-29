@@ -1,16 +1,17 @@
 import { client } from "./index.js";
 import bcrypt from "bcrypt"
+import { ObjectId } from "mongodb";
 export function deletingMovies(id) {
   return client
     .db("FirstDB")
     .collection("movies")
-    .deleteOne({ id: id });
+    .deleteOne({ _id: ObjectId(id)});
 }
 export function findingById(id) {
   return client
     .db("FirstDB")
     .collection("movies")
-    .findOne({ id: id });
+    .findOne({ _id: ObjectId(id)});
 }
 export function insertingMovies(newMovies) {
   return client
@@ -29,7 +30,7 @@ export function updatingMovie(id, updateMovie){
   return client
   .db("FirstDB")
   .collection("movies")
-  .updateOne({id:id},{$set:updateMovie});
+  .updateOne( {_id: ObjectId(id)},{$set:updateMovie});
 }
 export async function genPassword(password){
   const salt = await bcrypt.genSalt(10);

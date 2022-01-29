@@ -4,7 +4,7 @@ import express from "express"
 //importing movie functions
 import { searchingMovies, insertingMovies, findingById, deletingMovies,updatingMovie } from "../movieFunctions.js";
 
-import {auth} from "../auth.js"
+// import {auth} from "../auth.js"
 
 // getting router from express
 const router = express.Router()
