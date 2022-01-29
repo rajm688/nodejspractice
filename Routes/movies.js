@@ -10,7 +10,7 @@ import {auth} from "../auth.js"
 const router = express.Router()
 
 //serching movie data
-router.get("/",auth,async (req, res) => {
+router.get("/",async (req, res) => {
     // const {rating,name,language} = req.query; // object destructuring and seperating all necessery searching conditions
     // const request = req.query; // object destructuring and seperating all necessery searching conditions
   
